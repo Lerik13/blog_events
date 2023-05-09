@@ -7,8 +7,7 @@ const Pagination = ({currentPage, numPages}) => {
 	const prevPage = `/blog/page/${currentPage - 1}`
 	const nextPage = `/blog/page/${currentPage + 1}`
 
-	if (numPages === 1) return <div></div>
-
+	if (numPages === 1) return <></>
 
 	return (
 		<div className='mt-6'>
@@ -23,9 +22,15 @@ const Pagination = ({currentPage, numPages}) => {
 				
 				{Array.from({length: numPages}, (_, i) => (
 					<Link href={`/blog/page/${i + 1}`}>
-						<li className='relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-gray-800 mr-1 hover:bg-gray-200 cursor-pointer'>
-							{i + 1}
-						</li>
+						{i === currentPage-1 ? (
+							<li key={i} className='relative block py-2 px-3 leading-tight bg-gray-200 border border-gray-300 text-gray-800 mr-1 hover:bg-gray-200 cursor-pointer'>
+								{i + 1}
+							</li>
+						) : (
+							<li key={i} className='relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-gray-800 mr-1 hover:bg-gray-200 cursor-pointer'>
+								{i + 1}
+							</li>
+						)}
 					</Link>
 				))}
 
