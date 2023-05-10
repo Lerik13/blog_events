@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {FaSearch} from 'react-icons/fa';
 import useDebounce from '@/hooks/useDebounce';
+import SearchResults from './SearchResults';
 
 const Search = () => {
 	const [search, setSearch] = useState('');
@@ -10,20 +11,20 @@ const Search = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			
+			//console.log('fetchData: debouncedSearch= '+debouncedSearch)
 			if (search === '') {
 				setSearchResults([])
 			} else {
 				const res = await fetch(`/api/search?q=${debouncedSearch}`)
 				const results = await res.json()
 				
+				//setSearchResults({results})
 				setSearchResults(results)
 			}
 		}
 
-		if (debouncedSearch) {
+		//if (debouncedSearch) {
 			fetchData()
-		}
 	}, [debouncedSearch])
 
 	return (
@@ -43,6 +44,7 @@ const Search = () => {
 					</form>
 				</div>
 			</div>
+			<SearchResults results={searchResults} />
 		</div>
 	)
 }
