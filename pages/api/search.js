@@ -6,7 +6,9 @@ export default function handler(req, res) {
 	let posts
 
 	if (process.env.NODE_ENV === 'production') {
-		// TODO - fetch from cache
+		// Fetch from cache
+		posts = require('../../cache/data').posts
+		
 	} else {
 		const files = fs.readdirSync(path.join('posts'))
 
@@ -35,6 +37,5 @@ export default function handler(req, res) {
 	//console.log(results)
 
 	//res.status(200).json(JSON.stringify({ results }))
-	//res.status(200).json(JSON.stringify(results))
 	res.status(200).json(results)
 }
